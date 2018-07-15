@@ -72,7 +72,7 @@
 
 var _three = __webpack_require__(1);
 
-var dat = __webpack_require__(2);
+var dat = __webpack_require__(2); // via https://github.com/dataarts/dat.gui 
 
 // scene setup
 var scene = new _three.Scene();

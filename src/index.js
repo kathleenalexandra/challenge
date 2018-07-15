@@ -1,6 +1,6 @@
-import { Scene, PerspectiveCamera, WebGLRenderer, AmbientLight, BoxBufferGeometry, MeshBasicMaterial, Mesh, CubeGeometry, MeshPhongMaterial } from 'three/build/three.module';
+import { Scene, PerspectiveCamera, WebGLRenderer, AmbientLight, BoxBufferGeometry, MeshBasicMaterial, Mesh } from 'three/build/three.module';
 
-const dat = require('dat.gui'); 
+const dat = require('dat.gui'); // via https://github.com/dataarts/dat.gui 
 
 // scene setup
 const scene = new Scene();
