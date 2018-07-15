@@ -84,7 +84,6 @@ scene.add(light);
 
 var userChoice = {
   greetingMessage: 'Hello Blippar!!',
-  displayOutline: false,
   selectedSize: 6.0,
   selectedColor: "#ff0000"
 };
