@@ -24,7 +24,7 @@ scene.add(light);
     var userColor = gui.addColor( userChoice, 'selectedColor' ).name('Color').listen();
 
 
-//change cubes in scene to user preference for color
+//change cubes in scene to user preference for size
   userSize.onChange(function(value) {   
     scene.traverse( function( node ) {
       if ( node instanceof Mesh ){
@@ -34,7 +34,7 @@ scene.add(light);
     }); 
   });
 
-//change cubes in scene to user preference for size
+//change cubes in scene to user preference for color
 userColor.onChange(function(value) {   
   scene.traverse( function( node ) {
       if ( node instanceof Mesh ) {

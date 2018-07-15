@@ -95,7 +95,7 @@ gui.add(userChoice, 'greetingMessage');
 var userSize = gui.add(userChoice, 'selectedSize').min(-10).max(10).step(0.25).listen();
 var userColor = gui.addColor(userChoice, 'selectedColor').name('Color').listen();
 
-//change cubes in scene to user preference for color
+//change cubes in scene to user preference for size
 userSize.onChange(function (value) {
   scene.traverse(function (node) {
     if (node instanceof _three.Mesh) {
@@ -105,7 +105,7 @@ userSize.onChange(function (value) {
   });
 });
 
-//change cubes in scene to user preference for size
+//change cubes in scene to user preference for color
 userColor.onChange(function (value) {
   scene.traverse(function (node) {
     if (node instanceof _three.Mesh) {
