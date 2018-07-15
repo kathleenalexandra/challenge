@@ -1,4 +1,6 @@
-import { Scene, PerspectiveCamera, WebGLRenderer, AmbientLight, BoxBufferGeometry, MeshBasicMaterial, Mesh } from 'three/build/three.module';
+import { Scene, PerspectiveCamera, WebGLRenderer, AmbientLight, BoxBufferGeometry, MeshBasicMaterial, Mesh, CubeGeometry, MeshPhongMaterial } from 'three/build/three.module';
+
+const dat = require('dat.gui'); 
 
 // scene setup
 const scene = new Scene();
@@ -8,53 +10,52 @@ const light = new AmbientLight(0x444444);
 
 scene.add(light);
 
-function initButtons() { 
-    var btnRed = document.getElementById("red");
-    btnRed.addEventListener( 'click',function(){cubeColor(red)});
-    var btnYellow = document.getElementById("yellow");
-    btnYellow.addEventListener( 'click',function(){cubeColor(yellow)});
-    var btnGreen = document.getElementById("green");
-    btnGreen.addEventListener( 'click',function(){cubeColor(green)});
-    var btnBlue = document.getElementById("blue");
-    btnBlue.addEventListener( 'click',function(){cubeColor(blue)});
-    var btnBlue = document.getElementById("purple");
-    btnBlue.addEventListener( 'click',function(){cubeColor(purple)});
-    var btnRandom = document.getElementById("random");
-    btnRandom.addEventListener( 'click',function(){cubeColor(randomColor)});
-}
-initButtons(); 
+ var userChoice = {
+        greetingMessage: 'Hello Blippar!!',
+        displayOutline: false,
+        selectedSize: 6.0,
+        selectedColor: "#ff0000",
+    };
 
-var currentColor = 0x7a7a7a;
-var red = 0xFF0000;
-var yellow = 0xa8a843; 
-var green = 0x00ff00; 
-var blue = 0x0000bb; 
-var purple = 0xf000ff; 
+    var gui = new dat.gui.GUI();
+    gui.remember(userChoice);
+    gui.add(userChoice, 'greetingMessage');
+    var userSize = gui.add(userChoice, 'selectedSize').min(-10).max(10).step(0.25).listen();
+    var userColor = gui.addColor( userChoice, 'selectedColor' ).name('Color').listen();
 
-// create option for random color selection
-var colorArray = [red, yellow, green, blue, purple]; 
-var randomColor; 
 
+//change cubes in scene to user preference for color
+  userSize.onChange(function(value) {   
+    scene.traverse( function( node ) {
+      if ( node instanceof Mesh ){
+          node.scale.set(value,value,value);
+          currentSize = value; //set current color varialbe to spawn new cube as user selected size
+        }
+    }); 
+  });
+
+//change cubes in scene to user preference for size
+userColor.onChange(function(value) {   
+  scene.traverse( function( node ) {
+      if ( node instanceof Mesh ) {
+          node.material.color.setHex( value.replace("#", "0x") );
+          currentColor = value.replace("#", "0x"); //set current color varialbe to spawn new cube as user selected color 
+        }
+    });
+  });
+
+
+// initial setup for cubes 
 var size = 0.5;
-var currentSize; 
-
-var slider = document.getElementById("myRange");
-var output = document.getElementById("sizeValue");
-output.innerHTML = slider.value;
-
-slider.oninput = function() {
-  output.innerHTML = this.value;
-  var selectedSize = this.value; 
-  cubeSize(selectedSize);
-}
-
+var currentSize;
+var currentColor = 0x7a7a7a; 
 const geometry = new BoxBufferGeometry( size, size, size );
 const material = new MeshBasicMaterial( { color: currentColor } );
 
-
+// spawn cube every second at random x and y position, and random orientation 
 setInterval(function() {
   const mesh = new Mesh( geometry, material );
-  mesh.position.y = Math.random()* 10 - 5; //spawn new cube at random x, y and z
+  mesh.position.y = Math.random()* 10 - 5; 
   mesh.position.x = Math.random()* 10 - 5; 
   // mesh.position.z = Math.random()* 10 - 5;  //commented out to demonstrate all cubes appear at same initial size
   mesh.rotation.y = Math.random()* 10 - 5;
@@ -62,30 +63,6 @@ setInterval(function() {
   mesh.rotation.z = Math.random()* 10 - 5;
   scene.add(mesh)
 }, 1000);
-
-
-// The following functions, grab all instances of Mesh in leiu of looping through all mesh material objects,
-// and cube objects, looping through an array and assining new values to each, every time there is user input 
-
-
-function cubeSize(passedSize) {
-scene.traverse( function( node ) {
-    if ( node instanceof Mesh ){
-        node.scale.set(passedSize,passedSize,passedSize);
-        currentSize = passedSize; //set current color varialbe to spawn new cube as user selected size
-    	}
-	});
-} 
-
-function cubeColor(passedColor) {
-scene.traverse( function( node ) {
-    if ( node instanceof Mesh ) {
-        node.material.color.setHex( passedColor );
-        randomColor = colorArray[Math.floor(Math.random()*colorArray.length)];
-        currentColor = passedColor; //set current color varialbe to spawn new cube as user selected color 
-    	}
-	});
-} 
 
 
 camera.position.z = 5; 
