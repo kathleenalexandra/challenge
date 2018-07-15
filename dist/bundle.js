@@ -127,9 +127,7 @@ setInterval(function () {
   mesh.position.y = Math.random() * 10 - 5;
   mesh.position.x = Math.random() * 10 - 5;
   // mesh.position.z = Math.random()* 10 - 5;  //commented out to demonstrate all cubes appear at same initial size
-  mesh.rotation.y = Math.random() * 10 - 5;
-  mesh.rotation.x = Math.random() * 10 - 5;
-  mesh.rotation.z = Math.random() * 10 - 5;
+  mesh.rotation.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
   scene.add(mesh);
 }, 1000);
 
