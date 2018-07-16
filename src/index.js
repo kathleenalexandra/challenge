@@ -33,9 +33,9 @@ var material = new MeshBasicMaterial( { color: currentColor } );
   userSize.onChange(function(value) {   
     scene.traverse( function( node ) {
       if ( node instanceof Mesh ){
-          node.scale.set(value,value,value);
-          currentSize = value; //set current color varialbe to spawn new cube as user selected size
+          node.scale.set(value,value,value); 
         }
+        currentSize = value; //set current color varialbe to spawn new cube as user selected size
     }); 
   });
 
@@ -44,14 +44,10 @@ userColor.onChange(function(value) {
   scene.traverse( function( node ) {
       if ( node instanceof Mesh ) {
           node.material.color.setHex( value.replace("#", "0x") );
-          currentColor = value.replace("#", "0x"); //set current color varialbe to spawn new cube as user selected color 
         }
+        currentColor = value.replace("#", "0x"); //set current color varialbe to spawn new cube as user selected color 
     });
   });
-
-
-
-
 
 
 // spawn cube every second at random x and y position, and random orientation 

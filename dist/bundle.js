@@ -105,8 +105,8 @@ userSize.onChange(function (value) {
   scene.traverse(function (node) {
     if (node instanceof _three.Mesh) {
       node.scale.set(value, value, value);
-      currentSize = value; //set current color varialbe to spawn new cube as user selected size
     }
+    currentSize = value; //set current color varialbe to spawn new cube as user selected size
   });
 });
 
@@ -115,8 +115,8 @@ userColor.onChange(function (value) {
   scene.traverse(function (node) {
     if (node instanceof _three.Mesh) {
       node.material.color.setHex(value.replace("#", "0x"));
-      currentColor = value.replace("#", "0x"); //set current color varialbe to spawn new cube as user selected color 
     }
+    currentColor = value.replace("#", "0x"); //set current color varialbe to spawn new cube as user selected color 
   });
 });
 
