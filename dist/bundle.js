@@ -82,9 +82,15 @@ var light = new _three.AmbientLight(0x444444);
 
 scene.add(light);
 
+// initial setup for cubes 
+var currentSize = 0.5;
+var currentColor = 0x7a7a7a;
+var geometry = new _three.BoxBufferGeometry(currentSize, currentSize, currentSize);
+var material = new _three.MeshBasicMaterial({ color: currentColor });
+
 var userChoice = {
   greetingMessage: 'Hello Blippar!!',
-  selectedSize: 6.0,
+  selectedSize: 0.5,
   selectedColor: "#ff0000"
 };
 
@@ -113,13 +119,6 @@ userColor.onChange(function (value) {
     }
   });
 });
-
-// initial setup for cubes 
-var size = 0.5;
-var currentSize;
-var currentColor = 0x7a7a7a;
-var geometry = new _three.BoxBufferGeometry(size, size, size);
-var material = new _three.MeshBasicMaterial({ color: currentColor });
 
 // spawn cube every second at random x and y position, and random orientation 
 setInterval(function () {
